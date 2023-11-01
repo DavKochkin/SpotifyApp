@@ -27,12 +27,25 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        signInButton.frame = CGRect(x: 20, y: 1, width: 200, height: 50)
+        signInButton.frame = CGRect(x: 20,
+                                    y: view.height-50-view.safeAreaInsets.bottom,
+                                    width: view.width-40,
+                                    height: 50)
     }
     
     @objc func didTapSignIn() {
         let vc = AuthViewController()
+        vc.completionHandler = { [weak self] success in
+            DispatchQueue.main.async {
+                self?.handleSignIn(success: success)
+            }
+        }
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func handleSignIn(success: Bool) {
+        // Log user in or yell at them for error
+        
     }
 }
