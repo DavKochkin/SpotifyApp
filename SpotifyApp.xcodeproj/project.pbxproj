@@ -29,6 +29,7 @@
 		0482B76B2AF015BD00EEFFAF /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482B76A2AF015BD00EEFFAF /* AudioTrack.swift */; };
 		0482B76D2AF015C900EEFFAF /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482B76C2AF015C900EEFFAF /* Artist.swift */; };
 		0482B76F2AF015D700EEFFAF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482B76E2AF015D700EEFFAF /* UserProfile.swift */; };
+		04BE763C2AF260A600D39A6D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE763B2AF260A600D39A6D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		0482B76A2AF015BD00EEFFAF /* AudioTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
 		0482B76C2AF015C900EEFFAF /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		0482B76E2AF015D700EEFFAF /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		04BE763B2AF260A600D39A6D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				0482B73B2AEFEB0900EEFFAF /* Assets.xcassets */,
 				0482B7322AEFEB0800EEFFAF /* AppDelegate.swift */,
 				0482B7342AEFEB0800EEFFAF /* SceneDelegate.swift */,
+				04BE763B2AF260A600D39A6D /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				0482B75B2AEFEFF700EEFFAF /* ProfileViewController.swift in Sources */,
 				0482B74D2AEFEF0100EEFFAF /* TabBarViewController.swift in Sources */,
 				0482B76B2AF015BD00EEFFAF /* AudioTrack.swift in Sources */,
+				04BE763C2AF260A600D39A6D /* Extensions.swift in Sources */,
 				0482B7372AEFEB0800EEFFAF /* HomeViewController.swift in Sources */,
 				0482B7552AEFEFBF00EEFFAF /* AuthViewController.swift in Sources */,
 				0482B7332AEFEB0800EEFFAF /* AppDelegate.swift in Sources */,
