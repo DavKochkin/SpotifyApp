@@ -14,6 +14,7 @@ final class AuthManager {
     struct Constants {
        static let clientID = "83b86334057c4de6ab0a567da7bd4032"
        static let clientSecret = "2aa6e0b222284397a0023fb6eeb5d89b"
+        static let tokenAPIURL = "https://accounts.spotify.com/api/token"
     }
     
     private init() {}
@@ -48,6 +49,45 @@ final class AuthManager {
     
     public func exchangeCodeForToken(code: String, completion: @escaping (Bool) -> Void) {
         // Get token
+        guard let url = URL(string: Constants.tokenAPIURL) else { return }
+        
+        var components = URLComponents()
+        components.queryItems = [
+            URLQueryItem(name: "grant_type", value: "authorization_code"),
+            URLQueryItem(name: "code", value: code),
+            URLQueryItem(name: "redirect_uri", value: "https://iosacademy.io/"),
+        ]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpBody = components.query?.data(using: .utf8)
+        
+        let basicToken = Constants.clientID+":"+Constants.clientSecret
+        let data = basicToken.data(using: .utf8)
+        guard let base64String = data?.base64EncodedString() else {
+            print("Failure to get base64")
+            completion(false)
+            return
+        }
+        
+        request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(false)
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.fragmentsAllowed)
+                print("Success: \(json)")
+                completion(true)
+            } catch {
+                print(error.localizedDescription)
+                completion(false)
+            }
+        }
+        task.resume()
     }
     
     public func refreshAccessToken() {
