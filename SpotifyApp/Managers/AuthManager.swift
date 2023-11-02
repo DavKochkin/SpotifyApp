@@ -15,15 +15,15 @@ final class AuthManager {
         static let clientID = "83b86334057c4de6ab0a567da7bd4032"
         static let clientSecret = "2aa6e0b222284397a0023fb6eeb5d89b"
         static let tokenAPIURL = "https://accounts.spotify.com/api/token"
+        static let redirectURI = "https://iosacademy.io/"
+        static let scopes = "user-read-private%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20user-follow-read%20user-library-modify%20user-library-read%20user-read-email"
     }
     
     private init() {}
     
     public var signInURL: URL? {
-        let scopes = "user-read-private"
-        let redirectURI = "https://iosacademy.io/"
         let base = "https://accounts.spotify.com/authorize"
-        let string = "\(base)?response_type=code&client_id=\(Constants.clientID)&scope=\(scopes)&redirect_uri=\(redirectURI)&show_dialog=TRUE"
+        let string = "\(base)?response_type=code&client_id=\(Constants.clientID)&scope=\(Constants.scopes)&redirect_uri=\(Constants.redirectURI)&show_dialog=TRUE"
         return URL(string: string)
     }
     
@@ -60,7 +60,7 @@ final class AuthManager {
         components.queryItems = [
             URLQueryItem(name: "grant_type", value: "authorization_code"),
             URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "redirect_uri", value: "https://iosacademy.io/"),
+            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
         ]
         
         var request = URLRequest(url: url)

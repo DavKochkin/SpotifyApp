@@ -28,10 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = window
         
-        AuthManager.shared.refreshIfNeeded { success in
-            print(success)
-        }
-        
         return true
     }
 
