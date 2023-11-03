@@ -9,7 +9,7 @@ import Foundation
 
 final class AuthManager {
     static let shared  = AuthManager()
-    
+    private var refreshingToken = false
     
     struct Constants {
         static let clientID = "83b86334057c4de6ab0a567da7bd4032"
@@ -95,17 +95,41 @@ final class AuthManager {
         task.resume()
     }
     
+    public func withValidToken(completion: @escaping (String) -> Void) {
+        guard !refreshingToken else {
+        // Append the completion
+            
+            return
+        }
+        if shouldRefreshToken {
+            // Refresh
+            refreshIfNeeded { [weak self] success in
+                    if let token = self?.accessToken, success {
+                        completion(token)
+                }
+            }
+        }
+        else if let token = accessToken {
+            completion(token)
+        }
+    }
+    
     public func refreshIfNeeded(completion: @escaping (Bool) -> Void) {
-//        guard shouldRefreshToken else {
-//            completion(true)
-//            return
-//        }
+        guard !refreshingToken else { return }
+        
+        guard shouldRefreshToken else {
+            completion(true)
+            return
+        }
+        
         guard let refreshToken = self.refreshToken else {
             return
         }
         
         // Refresh token
         guard let url = URL(string: Constants.tokenAPIURL) else { return }
+        
+        refreshingToken = true
         
         var components = URLComponents()
         components.queryItems = [
@@ -129,6 +153,7 @@ final class AuthManager {
         request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+            self?.refreshingToken = false
             guard let data = data, error == nil else {
                 completion(false)
                 return
