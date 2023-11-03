@@ -95,10 +95,13 @@ final class AuthManager {
         task.resume()
     }
     
+    
+    private var onRefreshBlock = [((String) -> Void)]()
+    
     public func withValidToken(completion: @escaping (String) -> Void) {
         guard !refreshingToken else {
         // Append the completion
-            
+            onRefreshBlock.append(completion)
             return
         }
         if shouldRefreshToken {
@@ -160,7 +163,8 @@ final class AuthManager {
             }
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-                print("Successfully refreshed")
+                self?.onRefreshBlock.forEach {$0(result.access_token)}
+                self?.onRefreshBlock.removeAll()
                 self?.cacheToken(result: result)
                 completion(true)
             } catch {
