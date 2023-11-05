@@ -20,7 +20,7 @@ final class APIRCaller {
         case failedToGetData
     }
     
-    public func fetCurrentUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) {
+    public func getCurrentUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) {
         createRequest(
             with: URL(string: Constants.baseAPIURL + "/me"),
             type: .GET)
@@ -37,6 +37,7 @@ final class APIRCaller {
                     completion(.failure(error))
                 }
             }
+            task.resume()
         }
     }
     
