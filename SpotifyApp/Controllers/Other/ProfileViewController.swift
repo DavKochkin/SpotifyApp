@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return tableView
     }()
     
+    private var models = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
@@ -38,7 +40,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 case .success(let model):
                     self?.updateUI(with: model)
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print("Profile Error: \(error.localizedDescription)")
                     self?.failedToGetProfile()
                 }
             }
@@ -48,6 +50,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func updateUI(with model: UserProfile) {
         tableView.isHidden = false
         // configure table models
+        models.append("Full Name: \(model.display_name)")
+        models.append("Email Address: \(model.email)")
+        models.append("User ID: \(model.id)")
+        models.append("Plan: \(model.product)")
+        
         tableView.reloadData()
     }
     
@@ -62,12 +69,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Foo"
+        cell.textLabel?.text = models[indexPath.row]
         cell.selectionStyle = .none
         return cell
     }
