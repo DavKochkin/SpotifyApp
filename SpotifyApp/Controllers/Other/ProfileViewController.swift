@@ -7,15 +7,28 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.isHidden = true
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
+        view.addSubview(tableView)
         fetchProfile()
         view.backgroundColor = .systemBackground
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
     }
     
     private func fetchProfile() {
@@ -33,7 +46,9 @@ class ProfileViewController: UIViewController {
     }
     
     private func updateUI(with model: UserProfile) {
-        
+        tableView.isHidden = false
+        // configure table models
+        tableView.reloadData()
     }
     
     private func failedToGetProfile() {
@@ -43,5 +58,17 @@ class ProfileViewController: UIViewController {
         label.textColor = .secondaryLabel
         view.addSubview(label)
         label.center = view.center
+    }
+    
+    //MARK: TableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "Foo"
+        cell.selectionStyle = .none
+        return cell
     }
 }
