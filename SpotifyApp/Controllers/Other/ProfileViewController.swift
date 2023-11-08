@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     private func fetchProfile() {
-        APIRCaller.shared.getCurrentUserProfile { [weak self] result in
+        APICaller.shared.getCurrentUserProfile { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let model):

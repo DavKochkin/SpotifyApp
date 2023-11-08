@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class APIRCaller {
-    static let shared = APIRCaller()
+final class APICaller {
+    static let shared = APICaller()
     
     private init() {}
     
@@ -54,17 +54,17 @@ final class APIRCaller {
                 
                 do {
                     let result = try JSONDecoder().decode(NewReleasesResponse.self, from: data)
-                    print(result)
                     completion(.success(result))
                 }
                 catch {
                     completion(.failure(error))
                 }
             }
+            task.resume()
         }
     }
     
-    public func getFeaturedPlaylist(completion: @escaping ((Result<String, Error>)) -> Void) {
+    public func getFeaturedPlaylist(completion: @escaping ((Result<FeaturedPlaylistResponse, Error>)) -> Void) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/browse/featured-playlist?limit=2"),
                       type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -74,11 +74,31 @@ final class APIRCaller {
                 }
                 
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    print(json)
+                    let result = try JSONDecoder().decode(FeaturedPlaylistResponse.self, from: data)
+                    completion(.success(result))
                 }
                 catch {
-                    
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    public func getRecommendations(completion: @escaping ((Result<String, Error>)) -> Void) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/recommendations"),
+                      type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    print("json: \(json)")
+                }
+                catch {
+                    completion(.failure(error))
                 }
             }
         }

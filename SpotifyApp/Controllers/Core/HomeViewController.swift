@@ -22,8 +22,9 @@ class HomeViewController: UIViewController {
     }
     
     private func fetchData() {
-        APIRCaller.shared.getFeaturedPlaylist { _ in
-        }
+        APICaller.shared.getRecommendations(completion: { _ in
+            
+        })
     }
     
     @objc func didTapSetting() {
