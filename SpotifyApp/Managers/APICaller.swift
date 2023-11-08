@@ -84,9 +84,10 @@ final class APICaller {
             task.resume()
         }
     }
+
     
-    public func getRecommendations(completion: @escaping ((Result<String, Error>)) -> Void) {
-        createRequest(with: URL(string: Constants.baseAPIURL + "/recommendations"),
+    public func getRecommendedGenres(completion: @escaping ((Result<String, Error>)) -> Void) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/recommendations/available-genre-seeds"),
                       type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 guard let data = data, error == nil else {
@@ -94,13 +95,14 @@ final class APICaller {
                     return
                 }
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    print("json: \(json)")
+                    let result = try JSONDecoder().decode(RecommendedGenres.self, from: data)
+                    print(result)
                 }
                 catch {
                     completion(.failure(error))
                 }
             }
+            task.resume()
         }
     }
     

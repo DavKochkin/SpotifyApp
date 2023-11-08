@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     }
     
     private func fetchData() {
-        APICaller.shared.getRecommendations(completion: { _ in
+        APICaller.shared.getRecommendedGenres(completion: { _ in
             
         })
     }
