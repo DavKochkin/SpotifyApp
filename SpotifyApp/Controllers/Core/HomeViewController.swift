@@ -131,8 +131,10 @@ class HomeViewController: UIViewController {
             guard let newAlbums = newRelease?.albums.items,
                   let playlist = featuredPlaylist?.playlist.items,
                   let tracks = recommendations?.tracks else {
+                fatalError("Models are nil")
                 return
             }
+            print("Configuring ViewModels")
             self.configureModels(newAlbums: newAlbums,
                                  playlist: playlist,
                                  tracks: tracks)
@@ -154,6 +156,7 @@ class HomeViewController: UIViewController {
         })))
         sections.append(.recommendedTracks(viewModels: []))
         sections.append(.featuredPlaylist(viewModels: []))
+        collectionView.reloadData()
     }
     
     @objc func didTapSetting() {
@@ -185,17 +188,32 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        if indexPath.section == 0 {
-            cell.backgroundColor = .systemGreen
+        let type = sections[indexPath.section]
+        
+        switch type {
+        case .newReleases(let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReleaseCollectionViewCell.identifier, for: indexPath)
+                    as? NewReleaseCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            let viewModel = viewModels[indexPath.row]
+            cell.backgroundColor = .red
+            return cell
+        case .featuredPlaylist(let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath)
+                    as? FeaturedPlaylistCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.backgroundColor = .blue
+            return cell
+        case .recommendedTracks(let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendedTrackCollectionViewCell.identifier, for: indexPath)
+                    as? RecommendedTrackCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.backgroundColor = .orange
+            return cell
         }
-        else if indexPath.section == 1 {
-            cell.backgroundColor = .systemPink
-        }
-        else if indexPath.section == 2 {
-            cell.backgroundColor = .systemBlue
-        }
-        return cell
     }
     
      static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
