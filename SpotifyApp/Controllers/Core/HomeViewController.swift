@@ -8,9 +8,9 @@
 import UIKit
 
 enum BrowseSectionType {
-    case newReleases
-    case featuredPlaylist
-    case recommendedTracks
+    case newReleases(viewModels: [NewReleasesAsCellViewModel])
+    case featuredPlaylist(viewModels: [NewReleasesAsCellViewModel])
+    case recommendedTracks(viewModels: [NewReleasesAsCellViewModel])
 }
 
 class HomeViewController: UIViewController {
@@ -27,6 +27,8 @@ class HomeViewController: UIViewController {
         spinner.hidesWhenStopped = true
         return spinner
     }()
+    
+    private var sections = [BrowseSectionType]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +52,13 @@ class HomeViewController: UIViewController {
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(NewReleaseCollectionViewCell.self, forCellWithReuseIdentifier: NewReleaseCollectionViewCell.identifier)
+        collectionView.register(FeaturedPlaylistCollectionViewCell.self, forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
+        collectionView.register(RecommendedTrackCollectionViewCell.self, forCellWithReuseIdentifier: RecommendedTrackCollectionViewCell.identifier)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
+        
         collectionView.backgroundColor = .systemBackground
         collectionView.frame = view.bounds
     }
@@ -77,6 +84,11 @@ class HomeViewController: UIViewController {
             case .failure(let error): break
             }
         })
+        // Configure models
+        
+        sections.append(.newReleases(viewModels: []))
+        sections.append(.recommendedTracks(viewModels: []))
+        sections.append(.featuredPlaylist(viewModels: []))
     }
     
     @objc func didTapSetting() {
@@ -95,7 +107,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
