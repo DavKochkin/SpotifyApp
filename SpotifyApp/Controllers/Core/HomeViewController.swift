@@ -168,7 +168,16 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        let type = sections[section]
+        switch type {
+            
+        case .newReleases(let viewModels):
+            return viewModels.count
+        case .featuredPlaylist(let viewModels):
+            return viewModels.count
+        case .recommendedTracks(let viewModels):
+            return viewModels.count
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
