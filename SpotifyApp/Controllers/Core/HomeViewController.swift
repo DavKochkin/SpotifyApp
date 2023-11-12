@@ -64,9 +64,41 @@ class HomeViewController: UIViewController {
     }
     
     private func fetchData() {
-        // Featured Playlists,
-        // Recommended tracks,
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        group.enter()
+        
+        var newRelease: NewReleasesResponse?
+        var featuredPlaylist: FeaturedPlaylistResponse?
+        var recommendations: RecommendationsResponse?
+        
         // New Releases
+        APICaller.shared.getNewReleases { result in
+            defer {
+                group.leave()
+            }
+            switch result {
+            case .success(let model):
+                newRelease = model
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        // Featured Playlists,
+        APICaller.shared.getFeaturedPlaylist { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let model):
+                featuredPlaylist = model
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        // Recommended tracks
         APICaller.shared.getRecommendedGenres(completion: { result in
             switch result {
             case .success(let model):
@@ -78,15 +110,48 @@ class HomeViewController: UIViewController {
                     }
                 }
                 
-                APICaller.shared.getRecommendations(genres: seeds) { _ in
+                APICaller.shared.getRecommendations(genres: seeds) { recommendedResult  in
+                    defer {
+                        group.leave()
+                    }
                     
+                    switch recommendedResult {
+                    case .success(let model): 
+                        recommendations = model
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
                 }
-            case .failure(let error): break
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         })
-        // Configure models
         
-        sections.append(.newReleases(viewModels: []))
+        group.notify(queue: .main) {
+            guard let newAlbums = newRelease?.albums.items,
+                  let playlist = featuredPlaylist?.playlist.items,
+                  let tracks = recommendations?.tracks else {
+                return
+            }
+            self.configureModels(newAlbums: newAlbums,
+                                 playlist: playlist,
+                                 tracks: tracks)
+        }
+    }
+    
+    private func configureModels(
+        newAlbums: [Album],
+        playlist: [Playlist],
+        tracks: [AudioTrack]
+    ) {
+        // Configure models
+        sections.append(.newReleases(viewModels: newAlbums.compactMap({
+            return NewReleasesAsCellViewModel(
+                name: $0.name,
+                artworkURL: URL(string: $0.images.first?.url ?? ""),
+                numberOfTracks: $0.total_tracks,
+                artistName: $0.artists.first?.name ?? "-")
+        })))
         sections.append(.recommendedTracks(viewModels: []))
         sections.append(.featuredPlaylist(viewModels: []))
     }
