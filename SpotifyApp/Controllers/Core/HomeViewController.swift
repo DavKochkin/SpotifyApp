@@ -70,7 +70,7 @@ class HomeViewController: UIViewController {
         group.enter()
         
         var newRelease: NewReleasesResponse?
-        var featuredPlaylist: FeaturedPlaylistResponse?
+        var featuredPlaylist: FeaturedPlaylistsResponse?
         var recommendations: RecommendationsResponse?
         
         // New Releases
@@ -86,7 +86,7 @@ class HomeViewController: UIViewController {
             }
         }
         // Featured Playlists,
-        APICaller.shared.getFeaturedPlaylist { result in
+        APICaller.shared.getFeaturedPlaylists { result in
             defer {
                 group.leave()
             }
@@ -129,7 +129,7 @@ class HomeViewController: UIViewController {
         
         group.notify(queue: .main) {
             guard let newAlbums = newRelease?.albums.items,
-                  let playlist = featuredPlaylist?.playlist.items,
+                  let playlist = featuredPlaylist?.playlists.items,
                   let tracks = recommendations?.tracks else {
                 fatalError("Models are nil")
                 return
@@ -197,7 +197,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return UICollectionViewCell()
             }
             let viewModel = viewModels[indexPath.row]
-            cell.backgroundColor = .red
+            cell.configure(with: viewModel)
             return cell
         case .featuredPlaylist(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath)

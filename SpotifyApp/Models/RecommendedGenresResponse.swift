@@ -8,6 +8,6 @@
 import Foundation
 
 
-struct RecommendedGenres: Codable {
+struct RecommendedGenresResponse: Codable {
     let genres: [String]
 }
