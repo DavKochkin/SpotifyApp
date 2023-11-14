@@ -9,8 +9,8 @@ import UIKit
 
 enum BrowseSectionType {
     case newReleases(viewModels: [NewReleasesAsCellViewModel])
-    case featuredPlaylist(viewModels: [NewReleasesAsCellViewModel])
-    case recommendedTracks(viewModels: [NewReleasesAsCellViewModel])
+    case featuredPlaylist(viewModels: [FeaturedPlaylistCellViewModel])
+    case recommendedTracks(viewModels: [RecommendedTrackCellViewModel])
 }
 
 class HomeViewController: UIViewController {
@@ -154,8 +154,16 @@ class HomeViewController: UIViewController {
                 numberOfTracks: $0.total_tracks,
                 artistName: $0.artists.first?.name ?? "-")
         })))
-        sections.append(.recommendedTracks(viewModels: []))
-        sections.append(.featuredPlaylist(viewModels: []))
+        sections.append(.featuredPlaylist(viewModels: playlist.compactMap({
+            return FeaturedPlaylistCellViewModel(name: $0.name,
+                                                 artworkURL: URL(string: $0.images.first?.url ?? ""),
+                                                 creatorName: $0.owner.display_name)
+        })))
+        sections.append(.recommendedTracks(viewModels: tracks.compactMap({
+            return RecommendedTrackCellViewModel(name: $0.name,
+                                                 artistName: $0.artists.first?.name ?? "-",
+                                                 artworkURL: URL(string: $0.album?.images.first?.url ?? "" ))
+        })))
         collectionView.reloadData()
     }
     
