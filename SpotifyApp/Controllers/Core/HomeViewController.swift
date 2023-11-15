@@ -219,7 +219,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     as? RecommendedTrackCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.backgroundColor = .orange
+            cell.configure(with: viewModels[indexPath.row])
             return cell
         }
     }
