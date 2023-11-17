@@ -239,10 +239,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let section = sections[indexPath.section]
         switch section  {
         case .featuredPlaylist:
-            break
+            let playlist = playlist[indexPath.row]
+            let vc = PlaylistViewController(playlist: playlist)
+            vc.title = playlist.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
         case .newReleases:
             let album = newAlbums[indexPath.row]
-            break
+            let vc = AlbumViewController(album: album)
+            vc.title = album.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
         case .recommendedTracks:
             break
             
