@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042C57F82B077FDB003AF825 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C57F72B077FDB003AF825 /* AlbumViewController.swift */; };
 		042F8F922AF9436A0065DB4F /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F8F912AF943690065DB4F /* SettingsModels.swift */; };
 		04722BC02AFE51F90048B1C9 /* NewReleaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04722BBF2AFE51F90048B1C9 /* NewReleaseCollectionViewCell.swift */; };
 		04722BC22AFE521C0048B1C9 /* FeaturedPlaylistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04722BC12AFE521C0048B1C9 /* FeaturedPlaylistCollectionViewCell.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042C57F72B077FDB003AF825 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		042F8F912AF943690065DB4F /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		04722BBF2AFE51F90048B1C9 /* NewReleaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		04722BC12AFE521C0048B1C9 /* FeaturedPlaylistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				0482B75C2AEFF00D00EEFFAF /* PlayerViewController.swift */,
 				0482B75E2AEFF01800EEFFAF /* PlaylistViewController.swift */,
 				0482B7602AEFF03200EEFFAF /* SearchResultsViewController.swift */,
+				042C57F72B077FDB003AF825 /* AlbumViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				0482B7672AF0159800EEFFAF /* HapticManager.swift in Sources */,
 				04D100E52B03C44D00CA2465 /* RecommendedTrackCellViewModel.swift in Sources */,
 				047CDDE72AFC10BB00EB4DA0 /* FeaturedPlaylistResponse.swift in Sources */,
+				042C57F82B077FDB003AF825 /* AlbumViewController.swift in Sources */,
 				04D100E32B03C3B100CA2465 /* FeaturedPlaylistCellViewModel.swift in Sources */,
 				0482B7612AEFF03200EEFFAF /* SearchResultsViewController.swift in Sources */,
 				0482B7572AEFEFD200EEFFAF /* WelcomeViewController.swift in Sources */,
