@@ -45,6 +45,7 @@
 		04D100E32B03C3B100CA2465 /* FeaturedPlaylistCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D100E22B03C3B100CA2465 /* FeaturedPlaylistCellViewModel.swift */; };
 		04D100E52B03C44D00CA2465 /* RecommendedTrackCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D100E42B03C44D00CA2465 /* RecommendedTrackCellViewModel.swift */; };
 		04EF49142B0925960063048E /* AlbumDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF49132B0925960063048E /* AlbumDetailsResponse.swift */; };
+		04EF49162B0A28820063048E /* PlaylistDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EF49152B0A28820063048E /* PlaylistDetailsResponse.swift */; };
 		BE57D2F280326045DF877E77 /* Pods_SpotifyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BBA0ABDBF7DE7B7C2F9F4D /* Pods_SpotifyApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		04D100E22B03C3B100CA2465 /* FeaturedPlaylistCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistCellViewModel.swift; sourceTree = SOURCE_ROOT; };
 		04D100E42B03C44D00CA2465 /* RecommendedTrackCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedTrackCellViewModel.swift; sourceTree = SOURCE_ROOT; };
 		04EF49132B0925960063048E /* AlbumDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailsResponse.swift; sourceTree = "<group>"; };
+		04EF49152B0A28820063048E /* PlaylistDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsResponse.swift; sourceTree = "<group>"; };
 		141FAE1A98089BF69FDB1A2E /* Pods-SpotifyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotifyApp.debug.xcconfig"; path = "Target Support Files/Pods-SpotifyApp/Pods-SpotifyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		46F4176F21E87CA93E725820 /* Pods-SpotifyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotifyApp.release.xcconfig"; path = "Target Support Files/Pods-SpotifyApp/Pods-SpotifyApp.release.xcconfig"; sourceTree = "<group>"; };
 		74BBA0ABDBF7DE7B7C2F9F4D /* Pods_SpotifyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotifyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +183,7 @@
 				047CDDE82AFC17D900EB4DA0 /* RecommendedGenresResponse.swift */,
 				047CDDEA2AFCEB9300EB4DA0 /* RecommendationsResponse.swift */,
 				04EF49132B0925960063048E /* AlbumDetailsResponse.swift */,
+				04EF49152B0A28820063048E /* PlaylistDetailsResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0482B74F2AEFEF2F00EEFFAF /* SearchViewController.swift in Sources */,
+				04EF49162B0A28820063048E /* PlaylistDetailsResponse.swift in Sources */,
 				0482B7692AF015B300EEFFAF /* Playlist.swift in Sources */,
 				0482B7632AF0157500EEFFAF /* AuthManager.swift in Sources */,
 				0482B7672AF0159800EEFFAF /* HapticManager.swift in Sources */,
