@@ -8,17 +8,19 @@
 import Foundation
 
 struct PlaylistDetailsResponse: Codable {
-    let album_type: String
-    let artists: [Artist]
-    let available_markets: [String]
+    let description: String
     let external_urls: [String: String]
     let id: String
     let images: [APIImage]
-    let label: String
     let name: String
-    let tracks: TracksResponse
+    let tracks: PlaylistTracksResponse
 }
 
-struct TracksResponse: Codable {
-    let items: [AudioTrack]
+struct PlaylistTracksResponse: Codable {
+    let items: [PlaylistItem]
+}
+
+
+struct PlaylistItem: Codable {
+    let track: AudioTrack
 }
