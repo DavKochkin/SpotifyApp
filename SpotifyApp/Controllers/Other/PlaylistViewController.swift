@@ -19,16 +19,24 @@ class PlaylistViewController: UIViewController {
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .fractionalHeight(1.0)
                 ))
-            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 2, bottom: 1, trailing: 2)
             
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(88)),
+                    heightDimension: .absolute(60)),
                 subitem: item,
                 count: 1
             )
             let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = [
+                NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)),
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top)
+            ]
             return section
         })
     )
@@ -53,6 +61,10 @@ class PlaylistViewController: UIViewController {
         collectionView.register(RecommendedTrackCollectionViewCell.self,
                                 forCellWithReuseIdentifier: RecommendedTrackCollectionViewCell.identifier)
         
+        collectionView.register(PlaylistHeaderCollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: PlaylistHeaderCollectionReusableView.identifier)
+        
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -61,7 +73,7 @@ class PlaylistViewController: UIViewController {
         APICaller.shared.getPlaylistDetails(for: playlist) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let model): 
+                case .success(let model):
                     // RecommendedTrackCellViewModel
                     self?.viewModels = model.tracks.items.compactMap({
                         RecommendedTrackCellViewModel(
@@ -101,6 +113,20 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: PlaylistHeaderCollectionReusableView.identifier,
+            for: indexPath
+        ) as? PlaylistHeaderCollectionReusableView,
+                
+        kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        // header.configure(with: headerViewModel)
+        return header
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
