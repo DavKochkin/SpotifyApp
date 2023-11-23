@@ -57,8 +57,8 @@ class AlbumViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         view.addSubview(collectionView)
-        collectionView.register(RecommendedTrackCollectionViewCell.self,
-                                forCellWithReuseIdentifier: RecommendedTrackCollectionViewCell.identifier)
+        collectionView.register(AlbumTrackCollectionViewsCell.self,
+                                forCellWithReuseIdentifier: AlbumTrackCollectionViewsCell.identifier)
         
         collectionView.register(PlaylistHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -101,8 +101,8 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: RecommendedTrackCollectionViewCell.identifier,
-            for: indexPath) as? RecommendedTrackCollectionViewCell else { return UICollectionViewCell()}
+            withReuseIdentifier: AlbumTrackCollectionViewsCell.identifier,
+            for: indexPath) as? AlbumTrackCollectionViewsCell else { return UICollectionViewCell()}
         
         cell.backgroundColor = .red
         cell.configure(with: viewModels[indexPath.row])
