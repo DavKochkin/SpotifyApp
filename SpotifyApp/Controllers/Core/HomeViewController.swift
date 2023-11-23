@@ -11,6 +11,17 @@ enum BrowseSectionType {
     case newReleases(viewModels: [NewReleasesAsCellViewModel])
     case featuredPlaylist(viewModels: [FeaturedPlaylistCellViewModel])
     case recommendedTracks(viewModels: [RecommendedTrackCellViewModel])
+    
+    var title: String {
+        switch self {
+        case .newReleases:
+            return "New Released Albums"
+        case .featuredPlaylist:
+            return "Featured Playlists"
+        case .recommendedTracks:
+            return "Recommended"
+        }
+    }
 }
 
 class HomeViewController: UIViewController {
@@ -264,7 +275,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         ) as? TitleHeaderCollectionReusableView, kind == UICollectionView.elementKindSectionHeader else {
             return  UICollectionReusableView()
         }
-        header.configure(with: "Home")
+        let section = indexPath.section
+        let title = sections[section].title
+        header.configure(with: title)
         return header
     }
     
