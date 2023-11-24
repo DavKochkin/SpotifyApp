@@ -52,7 +52,7 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
                                                                                                     weight: .regular))
         button.setImage(image, for: .normal)
         button.tintColor = .white
-        button.layer.cornerRadius = 30
+        button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         return button
     }()
@@ -81,14 +81,14 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let imageSize: CGFloat = height/1.8
-        imageView.frame = CGRect(x: (width-imageSize)/2, y: 20, width: imageSize, height: imageSize)
         
-        nameLabeL.frame = CGRect(x: 10, y: imageView.bottom, width: width-20, height: 44)
-        descriptionLabel.frame = CGRect(x: 10, y: nameLabeL.bottom, width: width-20, height: 44)
-        ownerLabel.frame = CGRect(x: 10, y: descriptionLabel.bottom, width: width-20, height: 44)
+        imageView.frame = CGRect(x: 53, y: 20, width: 290, height: 290)
         
-        playAllButton.frame = CGRect(x: width-80, y: height-80, width: 50, height: 50)
+        nameLabeL.frame = CGRect(x: 10, y: imageView.frame.maxY+5, width: width - 20, height: 44)
+        descriptionLabel.frame = CGRect(x: 10, y: nameLabeL.frame.maxY+5, width: width-20, height: 44)
+        ownerLabel.frame = CGRect(x: 10, y: descriptionLabel.frame.maxY+5, width: width-20, height: 44)
+        
+        playAllButton.frame = CGRect(x: width-80, y: ownerLabel.frame.maxY+5, width: 50, height: 50)
     }
     
     func configure(with viewModel: PlaylistHeaderViewModel) {
