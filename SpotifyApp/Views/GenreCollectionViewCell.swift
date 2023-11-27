@@ -28,7 +28,7 @@ class GenreCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let colors: [UIColor] = [
+    private let  colors: [UIColor] = [
         .systemPink,
         .systemBlue,
         .systemPurple,
