@@ -250,8 +250,8 @@ final class APICaller {
                     return
                 }
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                    print(json)
+                    let result = try JSONDecoder().decode(SearchResultResponse.self, from: data)
+                    print(result)
                 }
                 catch {
                     print(error.localizedDescription)
