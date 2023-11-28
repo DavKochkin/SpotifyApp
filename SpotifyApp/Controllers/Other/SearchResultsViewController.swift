@@ -12,7 +12,13 @@ struct SearchSeaction {
     let results: [SearchResult]
 }
 
+protocol SearchResultsViewControllerDelegate: AnyObject {
+    func didTapResult(_ result: SearchResult)
+}
+
 class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    weak var delegate: SearchResultsViewControllerDelegate?
     
     private var sections: [SearchSeaction] = []
     
@@ -99,6 +105,14 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
             cell.textLabel?.text = model.name
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        let result = sections[indexPath.section].results[indexPath.row]
+        delegate?.didTapResult(result)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
