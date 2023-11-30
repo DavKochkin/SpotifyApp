@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042614E72B18A18F005BE653 /* PlaybackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042614E62B18A18F005BE653 /* PlaybackPresenter.swift */; };
 		042C57F82B077FDB003AF825 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C57F72B077FDB003AF825 /* AlbumViewController.swift */; };
 		042F8F922AF9436A0065DB4F /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F8F912AF943690065DB4F /* SettingsModels.swift */; };
 		04722BC02AFE51F90048B1C9 /* NewReleaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04722BBF2AFE51F90048B1C9 /* NewReleaseCollectionViewCell.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042614E62B18A18F005BE653 /* PlaybackPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackPresenter.swift; sourceTree = "<group>"; };
 		042C57F72B077FDB003AF825 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		042F8F912AF943690065DB4F /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		04722BBF2AFE51F90048B1C9 /* NewReleaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleaseCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -138,6 +140,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		042614E52B18A175005BE653 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				042614E62B18A18F005BE653 /* PlaybackPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		04722BBE2AFE51C80048B1C9 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +179,7 @@
 		0482B7312AEFEB0800EEFFAF /* SpotifyApp */ = {
 			isa = PBXGroup;
 			children = (
+				042614E52B18A175005BE653 /* Presenter */,
 				0482B74B2AEFEB6300EEFFAF /* Resources */,
 				0482B74A2AEFEB5500EEFFAF /* Managers */,
 				0482B7492AEFEB4E00EEFFAF /* ViewModels */,
@@ -469,6 +480,7 @@
 				04E310552B14975400F4AD7C /* CategoryCollectionViewCellViewModel.swift in Sources */,
 				04E0F1C42B1647FD00AF6DA0 /* SearchResult.swift in Sources */,
 				0482B76F2AF015D700EEFFAF /* UserProfile.swift in Sources */,
+				042614E72B18A18F005BE653 /* PlaybackPresenter.swift in Sources */,
 				0482B7512AEFEF4000EEFFAF /* LibraryViewController.swift in Sources */,
 				0482B76D2AF015C900EEFFAF /* Artist.swift in Sources */,
 				049B71AB2B0CB5C600019A0A /* PlaylistHeaderViewModel.swift in Sources */,
