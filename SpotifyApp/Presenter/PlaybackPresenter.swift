@@ -16,11 +16,9 @@ final class PlaybackPresenter {
         viewController.present(vc, animated: true)
     }
     
-    static func startPlayback(from viewController: UIViewController, album: Album) {
-        
+    static func startPlayback(from viewController: UIViewController, tracks: [AudioTrack]) {
+        let vc = PlayerViewController()
+        viewController.present(vc, animated: true)
     }
-    
-    static func startPlayback(from viewController: UIViewController, playlist: Playlist) {
-        
-    }
+   
 }
