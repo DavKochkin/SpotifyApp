@@ -23,16 +23,17 @@ class PlayerViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(imageView)
         view.addSubview(controlsView)
+        controlsView.delegate = self
         configureBarButtons()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        imageView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.height)
+        imageView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.width)
         controlsView.frame = CGRect(
             x: 10,
-            y: imageView.bottom+10,
-            width: view.width-20,
+            y: 460,
+            width: view.width - 20,
             height: view.height-imageView.height-view.safeAreaInsets.top-view.safeAreaInsets.bottom-15)
     }
     
@@ -48,4 +49,21 @@ class PlayerViewController: UIViewController {
     @objc func didTapAction() {
         // Actions
     }
+}
+
+
+extension PlayerViewController: PlayerControlsViewDelegate {
+    func playerControlsViewDidTapPlayPauseButton(_ playerControlView: PlayerControlsView) {
+            
+    }
+    
+    func playerControlsViewDidTapForwardButton(_ playerControlView: PlayerControlsView) {
+        
+    }
+    
+    func playerControlsViewDidTapBackwardButton(_ playerControlView: PlayerControlsView) {
+        
+    }
+    
+    
 }
