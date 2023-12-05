@@ -8,9 +8,16 @@
 import UIKit
 import SDWebImage
 
+protocol PlayerViewControllerDelegate: AnyObject {
+    func didTapPlayPause()
+    func didTapForward()
+    func didTapBackward()
+}
+
 class PlayerViewController: UIViewController {
     
     weak var dataSource: PlayerDataSource?
+    weak var delegate: PlayerViewControllerDelegate?
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -67,15 +74,15 @@ class PlayerViewController: UIViewController {
 
 extension PlayerViewController: PlayerControlsViewDelegate {
     func playerControlsViewDidTapPlayPauseButton(_ playerControlView: PlayerControlsView) {
-            
+        delegate?.didTapPlayPause()
     }
     
     func playerControlsViewDidTapForwardButton(_ playerControlView: PlayerControlsView) {
-        
+        delegate?.didTapForward()
     }
     
     func playerControlsViewDidTapBackwardButton(_ playerControlView: PlayerControlsView) {
-        
+        delegate?.didTapBackward()
     }
     
     

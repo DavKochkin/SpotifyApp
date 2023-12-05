@@ -46,6 +46,7 @@ final class PlaybackPresenter {
         let vc = PlayerViewController()
         vc.title = track.name
         vc.dataSource = self
+        vc.delegate = self
         viewController.present(UINavigationController(rootViewController: vc), animated: true) {
             self.player?.play()
         }
@@ -57,6 +58,42 @@ final class PlaybackPresenter {
         let vc = PlayerViewController()
         viewController.present(UINavigationController(rootViewController: vc), animated: true)
     }
+}
+
+extension PlaybackPresenter: PlayerViewControllerDelegate {
+    func didTapPlayPause() {
+        if let player = player {
+            if player.timeControlStatus == .playing {
+                player.pause()
+            }
+            else if player.timeControlStatus == .paused{
+                player.play()
+            }
+        }
+    }
+    
+    func didTapForward() {
+        if tracks.isEmpty {
+            // Not playlist or album
+            player?.pause()
+        }
+        else {
+            
+        }
+    }
+    
+    func didTapBackward() {
+        if tracks.isEmpty {
+            // Not playlist or album
+            player?.pause()
+            player?.pause()
+        }
+        else {
+            
+        }
+    }
+    
+    
 }
 
 
