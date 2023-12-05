@@ -14,6 +14,11 @@ protocol PlayerControlsViewDelegate: AnyObject {
     func playerControlsViewDidTapBackwardButton(_ playerControlView: PlayerControlsView)
 }
 
+struct PlayerControlsViewViewModel {
+    let title: String?
+    let subtitle: String?
+}
+
 final class PlayerControlsView: UIView {
     
     weak var delegate: PlayerControlsViewDelegate?
@@ -112,5 +117,10 @@ final class PlayerControlsView: UIView {
         playPauseButton.frame = CGRect(x: (width - buttonSize)/2, y: 180, width: buttonSize, height: buttonSize)
         backButton.frame = CGRect(x: playPauseButton.left-70-buttonSize, y: 180, width: buttonSize, height: buttonSize)
         nextButton.frame = CGRect(x: playPauseButton.right+70, y: 180, width: buttonSize, height: buttonSize)
+    }
+    
+    func configure(with viewModel: PlayerControlsViewViewModel) {
+        nameLabel.text = viewModel.title
+        subtitleLabel.text = viewModel.subtitle
     }
 }
