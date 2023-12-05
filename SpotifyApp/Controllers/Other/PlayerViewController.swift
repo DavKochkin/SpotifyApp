@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PlayerViewController: UIViewController {
+    
+    weak var dataSource: PlayerDataSource?
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -25,6 +28,7 @@ class PlayerViewController: UIViewController {
         view.addSubview(controlsView)
         controlsView.delegate = self
         configureBarButtons()
+        configure()
     }
     
     override func viewDidLayoutSubviews() {
@@ -35,6 +39,10 @@ class PlayerViewController: UIViewController {
             y: 460,
             width: view.width - 20,
             height: view.height-imageView.height-view.safeAreaInsets.top-view.safeAreaInsets.bottom-15)
+    }
+    
+    private func configure() {
+        imageView.sd_setImage(with: dataSource?.imageURL)
     }
     
     private func configureBarButtons() {

@@ -104,13 +104,13 @@ final class PlayerControlsView: UIView {
         super.layoutSubviews()
         
         nameLabel.frame = CGRect(x: 0, y: 0, width: width, height: 50)
-        subtitleLabel.frame = CGRect(x: 0, y: nameLabel.bottom+10, width: width, height: 50)
+        subtitleLabel.frame = CGRect(x: 0, y: 50, width: width, height: 50)
         
-        volumeSlider.frame = CGRect(x: 10, y: subtitleLabel.bottom+20, width: width-20, height: 44)
+        volumeSlider.frame = CGRect(x: 10, y: 125, width: width-20, height: 44)
         
         let buttonSize: CGFloat = 60
-        playPauseButton.frame = CGRect(x: (width - buttonSize)/2, y: volumeSlider.bottom + 30, width: buttonSize, height: buttonSize)
-        backButton.frame = CGRect(x: playPauseButton.left-80-buttonSize, y: playPauseButton.top, width: buttonSize, height: buttonSize)
-        nextButton.frame = CGRect(x: playPauseButton.right+80, y: playPauseButton.top, width: buttonSize, height: buttonSize)
+        playPauseButton.frame = CGRect(x: (width - buttonSize)/2, y: 180, width: buttonSize, height: buttonSize)
+        backButton.frame = CGRect(x: playPauseButton.left-70-buttonSize, y: 180, width: buttonSize, height: buttonSize)
+        nextButton.frame = CGRect(x: playPauseButton.right+70, y: 180, width: buttonSize, height: buttonSize)
     }
 }
