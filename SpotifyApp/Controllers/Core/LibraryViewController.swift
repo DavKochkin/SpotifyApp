@@ -27,6 +27,7 @@ class LibraryViewController: UIViewController {
         view.addSubview(toggleView)
         
         scrollView.delegate = self
+        toggleView.delegate = self
         scrollView.contentSize = CGSize(width: view.width*2, height: scrollView.height)
         addChildren()
     }
@@ -61,5 +62,16 @@ class LibraryViewController: UIViewController {
 extension LibraryViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+    }
+}
+
+
+extension LibraryViewController: LibraryToggleViewDelegate {
+    func LibraryToggleViewDidTapPlaylists(_ toggleView: LibraryToggleView) {
+        scrollView.setContentOffset(.zero, animated: true)
+    }
+    
+    func LibraryToggleViewDidTapAlbums(_ toggleView: LibraryToggleView) {
+        scrollView.setContentOffset(CGPoint(x: view.width, y: 0), animated: true)
     }
 }
