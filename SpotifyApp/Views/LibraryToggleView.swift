@@ -61,11 +61,17 @@ class LibraryToggleView: UIView {
     
     @objc func didTapPlaylists() {
         state = .playlist
+        UIView.animate(withDuration: 0.2) {
+            self.layoutIndicator()
+        }
         delegate?.LibraryToggleViewDidTapPlaylists(self)
     }
     
     @objc func didTapAlbums() {
         state = .album
+        UIView.animate(withDuration: 0.2) {
+            self.layoutIndicator()
+        }
         delegate?.LibraryToggleViewDidTapAlbums(self)
     }
 
@@ -73,7 +79,10 @@ class LibraryToggleView: UIView {
         super.layoutSubviews()
         playlistButton.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         albumsButton.frame = CGRect(x: playlistButton.right, y: 0, width: 100, height: 40)
-        
+        layoutIndicator()
+    }
+    
+    func layoutIndicator() {
         switch state {
         case .playlist:
             indicatorView.frame = CGRect(x: 0,
@@ -85,6 +94,13 @@ class LibraryToggleView: UIView {
                                          y: 50,
                                          width: 100,
                                          height: 3)
+        }
+    }
+    
+    func update(for state: State) {
+        self.state = state
+        UIView.animate(withDuration: 0.2) {
+            self.layoutIndicator()
         }
     }
 }
