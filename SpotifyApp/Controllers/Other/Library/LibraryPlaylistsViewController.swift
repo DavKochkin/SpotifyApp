@@ -14,7 +14,7 @@ class LibraryPlaylistsViewController: UIViewController {
     private let noPlaylistView = ActionLabelView() 
     
     private let tableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(frame: .zero, style: .grouped)
         table.register(SearchResultSubtitleTableViewCell.self, forCellReuseIdentifier: SearchResultSubtitleTableViewCell.identifier)
         table.isHidden = true
         return table
@@ -129,5 +129,8 @@ extension LibraryPlaylistsViewController: UITableViewDelegate, UITableViewDataSo
             imageURL: URL(string: playlist.images.first?.url ?? ""))
         )
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
