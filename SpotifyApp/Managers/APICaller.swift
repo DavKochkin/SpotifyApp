@@ -135,12 +135,12 @@ final class APICaller {
     }
     
     public func addTrackToPlaylist(track: AudioTrack, playlist: Playlist, completion: @escaping (Bool) -> Void) {
-        createRequest(with: URL(string: Constants.baseAPIURL + "/playlist/\(playlist.id)/tracks"),
-                      type: .POST) { baseRequest in
+        createRequest(with: URL(string: Constants.baseAPIURL + "/playlists/\(playlist.id)/tracks"), type: .POST) { baseRequest in
             var request = baseRequest
             let json = [
-                "uris": "spotify:track:\(track.id)"
+                "uris": [ "spotify:track:\(track.id)" ]
             ]
+            print(json)
             request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -148,14 +148,16 @@ final class APICaller {
                     completion(false)
                     return
                 }
+                
                 do {
-                    let result = try JSONSerialization.jsonObject(with: data)
-                    if let response = result as? [String: Any], response["snapshot_id"] as? String != nil {}
-                    completion(true)
-                }
-                catch {
+                    let results = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    if let response = results as? [String: Any], response["shapshot_id"] as? String != nil {
+                        completion(true)
+                    }
+                } catch {
                     completion(false)
                 }
+                
             }
             task.resume()
         }

@@ -66,7 +66,8 @@ class HomeViewController: UIViewController {
     }
     
     private func addLongTapGesture() {
-        let gesture = UIGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        collectionView.isUserInteractionEnabled = true
         collectionView.addGestureRecognizer(gesture)
     }
     
@@ -93,7 +94,11 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async {
                 let vc = LibraryPlaylistsViewController()
                 vc.selectionHandler = { playlist in
-                    
+                    APICaller.shared.addTrackToPlaylist(track: model,
+                                                        playlist: playlist
+                    ) { success in
+                        print("Added to playlist success: \(success)")
+                    }
                 }
                 vc.title = "Select Playlist"
                 self?.present(UINavigationController(rootViewController: vc), animated: true)
