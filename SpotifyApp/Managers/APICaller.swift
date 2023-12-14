@@ -154,9 +154,6 @@ final class APICaller {
                     if let response = results as? [String: Any], response["shapshot_id"] as? String != nil {
                         completion(true)
                     }
-                    else {
-                        completion(false)
-                    }
                 } catch {
                     completion(false)
                 }
