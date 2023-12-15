@@ -67,6 +67,24 @@ final class APICaller {
         }
     }
     
+    public func saveAlbum(album: Album, completion: @escaping (Bool) -> Void) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/me/albums?ids=\(album.id)"),
+                      type: .PUT
+        ) { baseRequest in
+            var request = baseRequest
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let code = (response as? HTTPURLResponse)?.statusCode,
+                        error == nil else {
+                    completion(false)
+                    return
+                }
+                completion(code == 201)
+            }
+            task.resume()
+        }
+    }
+    
     
     //MARK: Playlist
     
@@ -425,6 +443,7 @@ final class APICaller {
     
     enum HTTPMethod: String {
         case GET
+        case PUT
         case POST
         case DELETE
     }
