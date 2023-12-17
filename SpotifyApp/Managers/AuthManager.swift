@@ -101,15 +101,15 @@ final class AuthManager {
     // Supplies valid token to be used with API Calls
     public func withValidToken(completion: @escaping (String) -> Void) {
         guard !refreshingToken else {
-        // Append the completion
+            // Append the completion
             onRefreshBlock.append(completion)
             return
         }
         if shouldRefreshToken {
             // Refresh
             refreshIfNeeded { [weak self] success in
-                    if let token = self?.accessToken, success {
-                        completion(token)
+                if let token = self?.accessToken, success {
+                    completion(token)
                 }
             }
         }
@@ -187,5 +187,16 @@ final class AuthManager {
         
         UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(result.expires_in)),
                                        forKey: "expiration")
+    }
+    
+    public func signOut(completion: (Bool) -> Void) {
+        UserDefaults.standard.setValue(nil,
+                                       forKey: "access_token")
+        UserDefaults.standard.setValue(nil,
+                                       forKey: "refresh_token")
+        UserDefaults.standard.setValue(nil,
+                                       forKey: "expiration")
+        
+        completion(true)
     }
 }
