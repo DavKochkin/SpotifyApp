@@ -13,7 +13,7 @@ class WelcomeViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .white
         button.setTitle("Sign In with Spotify", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
     
@@ -30,6 +30,22 @@ class WelcomeViewController: UIViewController {
         view.alpha = 0.7
         return view
     }()
+    
+    private let logoImageView: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "logo"))
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
+    private let label: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 32, weight: .semibold)
+        label.text = "Listen to Millions\nof Songs on\the go."
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +55,8 @@ class WelcomeViewController: UIViewController {
         view.backgroundColor = .black
         view.addSubview(signInButton)
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        view.addSubview(label)
+        view.addSubview(logoImageView)
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,6 +67,9 @@ class WelcomeViewController: UIViewController {
                                     y: view.height-50-view.safeAreaInsets.bottom,
                                     width: view.width-40,
                                     height: 50)
+        
+        logoImageView.frame = CGRect(x: (view.width-120)/2, y: (view.height-350)/2, width: 120, height: 120)
+        label.frame = CGRect(x: 30, y: logoImageView.bottom+120, width: view.width-60, height: 150)
     }
     
     @objc func didTapSignIn() {
