@@ -16,17 +16,35 @@ class WelcomeViewController: UIViewController {
         button.setTitleColor(.blue, for: .normal)
         return button
     }()
+    
+    private let imageView: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.image = UIImage(named: "albums_background")
+        return image
+    }()
+    
+    private let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.7
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Spotify"
-        view.backgroundColor = .systemGreen
+        view.addSubview(imageView)
+        view.addSubview(overlayView)
+        view.backgroundColor = .black
         view.addSubview(signInButton)
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        imageView.frame = view.bounds
+        overlayView.frame = view.bounds
         signInButton.frame = CGRect(x: 20,
                                     y: view.height-50-view.safeAreaInsets.bottom,
                                     width: view.width-40,
