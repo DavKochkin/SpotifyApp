@@ -6,7 +6,8 @@ Full featured Spotify like app written in Swift 5 with MVVM architecture.
 # Technologies used
  
 + Official Spotify API Use
-+ Playlists, Playlist Creation,
++ UIKit
++ Playlists, Playlist Creation
 + Browse & Recommended
 + Search Songs, Albums, Artists, More
 + Playback and Playlists Playback
